@@ -1,6 +1,7 @@
 package org.hsweb.demo.controller;
 
 import org.hsweb.demo.po.User;
+import org.hsweb.demo.service.IUserService;
 import org.hsweb.demo.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,9 +13,17 @@ public class UserController {
     @Resource
     UserService userService;
 
+    @Resource
+    IUserService myUserService;
+
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     public List<User> getAll() {
         return userService.selectAll();
+    }
+
+    @RequestMapping(value = "/users/test", method = RequestMethod.GET)
+    public List<User> test(@RequestParam Integer size) {
+        return myUserService.selectAll(size);
     }
 
     @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
